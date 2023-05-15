@@ -3,7 +3,7 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 import tsConfigPaths from "vite-tsconfig-paths";
-import { viteExternalsPlugin } from 'vite-plugin-externals'
+import * as packageJson from "./package.json";
 
 export default defineConfig(() => ({
   plugins: [
@@ -24,7 +24,7 @@ export default defineConfig(() => ({
           }`,
     },
     optimizeDeps: {
-      exclude: ["react", "react-dom"],
+      exclude: Object.keys(packageJson.peerDependencies),
     },
     esbuild: {
       minify: true,
